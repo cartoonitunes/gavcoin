@@ -152,6 +152,8 @@ window.doMine = async function() {
     setStatus("Mining tx sent: " + tx.hash.slice(0, 10) + "...");
     await tx.wait();
     setStatus("Mined successfully!");
+    // Use a short delay to let the RPC catch up
+    await new Promise(r => setTimeout(r, 2000));
     await updateBalance();
     await updateMineableBlocks();
     await loadRecentEvents();
@@ -221,14 +223,23 @@ window.doSend = async function() {
 // --- Activity history via Blockscout API (no key needed) ---
 const BLOCKSCOUT_API = "https://eth.blockscout.com/api";
 
+const METHODS = {
+  "0x99f4b251": "mine",
+  "0x67eae672": "sendCoinFrom",
+  "0xc86a90fe": "sendCoin",
+  "0xdaea85c5": "approve",
+  "0x06005754": "owner",
+  "0xbbd39ac0": "coinBalance",
+  "0xa550f86d": "coinBalanceOf",
+};
+
 function decodeMethod(tx) {
-  // Etherscan provides functionName directly
   if (tx.functionName) {
-    const name = tx.functionName.split("(")[0];
-    return name || "call";
+    return tx.functionName.split("(")[0] || "call";
   }
   if (!tx.input || tx.input === "0x") return "mine";
-  return "call";
+  const sel = tx.input.slice(0, 10).toLowerCase();
+  return METHODS[sel] || "call";
 }
 
 function shortAddr(addr) {
@@ -313,6 +324,11 @@ if (window.ethereum) {
   window.ethereum.on("accountsChanged", () => location.reload());
   window.ethereum.on("chainChanged", () => location.reload());
 }
+
+// --- Auto-refresh mineable blocks every 30s ---
+setInterval(async () => {
+  try { await updateMineableBlocks(); } catch (_) {}
+}, 30000);
 
 // --- Start ---
 init();
