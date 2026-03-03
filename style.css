@@ -276,8 +276,8 @@ div#controls button.invalid {
   #info { font-size: 9pt; padding: 8pt; }
   input#val { width: 100%; display: block; margin-bottom: 4pt; }
   input#to { width: 100%; display: block; margin-bottom: 4pt; }
-  button#mine { float: none; width: 100%; display: block; margin-top: 6pt; }
-  button#send { width: 100%; display: block; margin-top: 4pt; }
+  button#send { width: 100%; display: block; margin-top: 6pt; }
+  button#mine { float: none; width: 100%; display: block; margin-top: 16pt; }
   ul#latest { border-width: 8pt; max-height: 200pt; }
   ul#latest li { font-size: 8pt; }
   .history-content { padding: 8pt; }
