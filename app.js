@@ -108,7 +108,7 @@ async function updateBalance() {
 }
 
 function formatGav(raw) {
-  return (Number(raw) / 1000).toLocaleString();
+  return Number(raw).toLocaleString();
 }
 
 // --- Mineable blocks ---
@@ -119,8 +119,8 @@ async function updateMineableBlocks() {
     const currentBlock = await provider.getBlockNumber();
     const mineable = currentBlock - (lastMinedBlock || DEPLOY_BLOCK);
     mineableEl.textContent = mineable.toLocaleString();
-    // 1000 raw per block, /1000 for display = 1 GAV per block to caller
-    mineRewardEl.textContent = mineable.toLocaleString();
+    // 1000 GAV per block to caller (and 1000 to validator)
+    mineRewardEl.textContent = (mineable * 1000).toLocaleString();
     mineBtn.textContent = "mine";
   } catch (e) {
     console.error("Mineable blocks error:", e);
@@ -171,8 +171,7 @@ window.doSend = async function() {
     return;
   }
 
-  // Convert display GAV to raw (multiply by 1000)
-  const rawVal = Math.round(Number(valInput) * 1000);
+  const rawVal = Math.round(Number(valInput));
   if (rawVal <= 0) {
     alert("Amount must be greater than zero.");
     return;
@@ -198,9 +197,8 @@ window.doSend = async function() {
   }
 };
 
-// --- Activity history via Etherscan API ---
-const ETHERSCAN_API = "https://api.etherscan.io/v2/api?chainid=1";
-const ETHERSCAN_KEY = "YOUR_ETHERSCAN_KEY";
+// --- Activity history via Blockscout API (no key needed) ---
+const BLOCKSCOUT_API = "https://eth.blockscout.com/api";
 
 function decodeMethod(tx) {
   // Etherscan provides functionName directly
@@ -240,7 +238,7 @@ async function resolveENS(addresses) {
 
 async function loadRecentEvents() {
   try {
-    const url = `${ETHERSCAN_API}&module=account&action=txlist&address=${CONTRACT}&page=1&offset=25&sort=desc&apikey=${ETHERSCAN_KEY}`;
+    const url = `${BLOCKSCOUT_API}?module=account&action=txlist&address=${CONTRACT}&page=1&offset=25&sort=desc`;
     const resp = await fetch(url);
     const data = await resp.json();
 
