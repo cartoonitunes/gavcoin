@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The History of GavCoin</title>
+  <meta name="description" content="The full history of GavCoin - from Gavin Wood's dapp-bin commit in 2015 to mainnet deployment in 2016, traced through primary sources.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="top">
+  <div id="balance">
+    <a href="index.html" style="color: white; text-decoration: none; font-size: 14pt;">GAVcoin</a>
+  </div>
+  <div id="addr" style="font-size: 10pt;">
+    <a href="https://etherscan.io/address/0xb4abc1bfc403a7b82c777420c81269858a4b8aa4" target="_blank" rel="noopener" style="color: #dca;">View on Etherscan</a>
+  </div>
+</div>
+
+<div class="history-content">
+  <a href="index.html" class="back-link">&larr; Back to GavCoin</a>
+
+  <h1>The History of GavCoin</h1>
+
+  <section>
+    <h2>2014: Early Proof-of-Concept</h2>
+    <p>On April 8, 2014, the official <a href="https://x.com/ethereum/status/453589682027507712" target="_blank" rel="noopener">Ethereum account tweeted</a> about early proof-of-concept development showing web-tech integration. Gavin Wood was already building the tools that would make contracts like GavCoin possible.</p>
+  </section>
+
+  <section>
+    <h2>February 2015: The Source Code</h2>
+    <p>Months before Ethereum mainnet launched, Gavin Wood pushed <a href="https://github.com/ethereum/dapp-bin/blob/master/coin/coin.sol" target="_blank" rel="noopener"><code>coin.sol</code></a> to the official <code>ethereum/dapp-bin</code> repository. The Solidity source defined a token called "GavCoin" with a novel mining mechanism: anyone could call <code>mine()</code> to mint GAV proportional to the blocks elapsed since the last mint.</p>
+    <p>This was written before any token standard existed. GavCoin uses <code>sendCoin</code> and <code>coinBalanceOf</code> instead of what would later become <code>transfer</code> and <code>balanceOf</code> in ERC-20. The contract was both a demonstration of Solidity's capabilities and a working token.</p>
+  </section>
+
+  <section>
+    <h2>July 5, 2015: Vitalik's Blog Post</h2>
+    <p>Vitalik Buterin published <a href="https://blog.ethereum.org/2015/07/05/on-abstraction#cryptography" target="_blank" rel="noopener">"On Abstraction"</a> on the Ethereum blog. In this post about cryptography and data structures, he uses "Gavcoin" as his primary example, mentioning it five times. GavCoin was the go-to reference for explaining how tokens and accounts could work on Ethereum. It was already part of the shared vocabulary of early Ethereum developers.</p>
+  </section>
+
+  <section>
+    <h2>November 13, 2015: Gavin on Tokens</h2>
+    <p>Gavin Wood <a href="https://x.com/gavofyork/status/665201013528375296" target="_blank" rel="noopener">tweeted</a> "lulz. Bring on the #ethereum tokens" with GavCoin visible in the screenshot. The token ecosystem was just starting to take shape, and GavCoin was already there.</p>
+  </section>
+
+  <section>
+    <h2>April 26, 2016: Mainnet Deployment</h2>
+    <p>The GavCoin contract was deployed to Ethereum mainnet at block 1,408,600 from wallet <a href="https://etherscan.io/address/0x20F9bb9dfd0c18748debE6C534B13Cb24f8dfD2D" target="_blank" rel="noopener"><code>0x20F9...fD2D</code></a>, a wallet traceable to EthDev, the Ethereum Foundation, and the Genesis block itself. The name "GavCoin" is hardcoded in the constructor bytecode (<code>0x476176436f696e</code> = ASCII "GavCoin").</p>
+    <p>A second, identical contract was deployed the same day from the same wallet.</p>
+  </section>
+
+  <section>
+    <h2>April 27, 2016: "Aww. Me and my key"</h2>
+    <p>The contract was deployed at 5:28 PM UTC on April 26. Exactly 24 hours and 40 minutes later, at 6:08 PM UTC on April 27, Gavin <a href="https://x.com/gavofyork/status/725386148378464256" target="_blank" rel="noopener">tweeted</a> "Aww. Me and my key" - his only tweet that month. Combined with the deployer wallet, the bytecode, and the dapp-bin history, the circumstantial evidence is hard to ignore.</p>
+  </section>
+
+  <section>
+    <h2>October 22, 2016: Parity Wallet</h2>
+    <p>Gavin <a href="https://x.com/gavofyork/status/789839626672435201" target="_blank" rel="noopener">shared a screenshot</a> of the Parity 1.4 wallet showing token support. The wallet interface Gavin was building could now display tokens like the one he had deployed months earlier.</p>
+  </section>
+
+  <section>
+    <h2>GavCoin in Presentations</h2>
+    <p>GavCoin was also discussed in talks about Ethereum's token capabilities:</p>
+    <div class="video-embed">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/GJGIeSCgskc?start=2331" title="GavCoin presentation" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2>2025: The Investigation</h2>
+    <p><a href="https://x.com/cartoonitunes/status/1947704862159905221" target="_blank" rel="noopener">@cartoonitunes wrote an investigation thread</a> tracing the deployer wallet through the Ethereum Foundation's early infrastructure, bringing renewed attention to this artifact. The thread methodically follows the on-chain trail from the Genesis block through EthDev wallets to the GavCoin deployment address.</p>
+    <p>A <a href="https://x.com/i/status/1950299622024634539" target="_blank" rel="noopener">follow-up video</a> further documented the provenance chain.</p>
+    <p>None of this constitutes proof. Gavin has never publicly confirmed or denied authorship. But the clues all point in one direction.</p>
+  </section>
+
+  <section>
+    <h2>Still Alive</h2>
+    <p>GavCoin predates the ERC-20 standard by over a year. It is one of the oldest surviving token contracts on Ethereum. The <code>mine()</code> function still works. Anyone can mint. The contract sits on mainnet exactly as it was deployed in 2016, a piece of Ethereum archaeology that is still running.</p>
+  </section>
+
+  <section class="sources">
+    <h2>Primary Sources</h2>
+    <ul>
+      <li><a href="https://github.com/ethereum/dapp-bin/blob/master/coin/coin.sol" target="_blank" rel="noopener">coin.sol in ethereum/dapp-bin</a> - original Solidity source</li>
+      <li><a href="https://blog.ethereum.org/2015/07/05/on-abstraction#cryptography" target="_blank" rel="noopener">Vitalik, "On Abstraction" (July 2015)</a> - mentions Gavcoin 5 times</li>
+      <li><a href="https://x.com/ethereum/status/453589682027507712" target="_blank" rel="noopener">Ethereum tweet (April 2014)</a> - early PoC development</li>
+      <li><a href="https://x.com/gavofyork/status/665201013528375296" target="_blank" rel="noopener">Gavin tweet (Nov 2015)</a> - "Bring on the #ethereum tokens"</li>
+      <li><a href="https://x.com/gavofyork/status/725386148378464256" target="_blank" rel="noopener">Gavin tweet (April 27, 2016)</a> - "Aww. Me and my key"</li>
+      <li><a href="https://x.com/gavofyork/status/789839626672435201" target="_blank" rel="noopener">Gavin tweet (Oct 2016)</a> - Parity 1.4 wallet screenshot</li>
+      <li><a href="https://etherscan.io/address/0xb4abc1bfc403a7b82c777420c81269858a4b8aa4" target="_blank" rel="noopener">GavCoin contract on Etherscan</a></li>
+      <li><a href="https://etherscan.io/address/0x20F9bb9dfd0c18748debE6C534B13Cb24f8dfD2D" target="_blank" rel="noopener">Deployer wallet on Etherscan</a></li>
+      <li><a href="https://x.com/cartoonitunes/status/1947704862159905221" target="_blank" rel="noopener">@cartoonitunes investigation thread (2025)</a></li>
+      <li><a href="https://x.com/i/status/1950299622024634539" target="_blank" rel="noopener">Investigation video</a></li>
+      <li><a href="https://www.youtube.com/watch?v=GJGIeSCgskc&t=2331s" target="_blank" rel="noopener">GavCoin presentation (YouTube)</a></li>
+    </ul>
+  </section>
+
+  <a href="index.html" class="back-link">&larr; Back to GavCoin</a>
+</div>
+
+</body>
+</html>

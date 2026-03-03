@@ -1,0 +1,283 @@
+/* GavCoin - faithful to the 2016 original */
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: Ubuntu, -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, sans-serif;
+  background-image: url("backcoin.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #2a1f0e;
+  margin: 0;
+  min-height: 100vh;
+  color: #222;
+}
+
+/* Top bar */
+div#top {
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  padding: 6pt;
+  text-shadow: 0px 0px 10px white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div#balance { font-size: 14pt; }
+span#gav { font-weight: bold; font-size: 16pt; }
+span.units { font-size: small; font-weight: bold; color: #dca; }
+#controls span.units { color: #222; }
+
+div#addr { font-size: 10pt; }
+#addrText {
+  font-family: monospace;
+  opacity: 0.8;
+}
+
+#connectBtn {
+  background: rgba(0,0,0,0.25);
+  border: 2pt solid rgba(0,0,0,0.5);
+  color: white;
+  cursor: pointer;
+}
+#connectBtn:hover { background: rgba(0,0,0,0.35); }
+
+/* Main content */
+div#main {
+  margin: 0 16pt;
+  padding: 16pt;
+}
+
+/* Title / logo */
+div#title {
+  margin-top: 16pt;
+  font-size: 45pt;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 56px;
+  display: inline-block;
+  padding: 8pt 24pt 8pt 8pt;
+  box-shadow: 0 0 16pt black;
+}
+
+div#title img {
+  vertical-align: middle;
+  margin-right: 10pt;
+}
+
+div#title span {
+  color: #430;
+  vertical-align: middle;
+}
+
+/* Info section */
+#info {
+  text-align: center;
+  margin: 16pt 0 8pt;
+  padding: 12pt;
+  background: rgba(255,255,255,0.35);
+  border-radius: 8pt;
+  font-size: 10pt;
+  color: #333;
+}
+#info p { margin: 4pt 0; }
+#info a { color: #630; }
+
+/* History link */
+.history-link { margin-top: 4pt; }
+.history-link a {
+  color: #630;
+  text-decoration: none;
+}
+.history-link a:hover {
+  text-decoration: underline;
+}
+
+/* Transaction list */
+ul#latest {
+  list-style-type: none;
+  margin: 16pt 0 0;
+  padding: 0;
+  border: 16pt rgba(0,0,0, 0.05) solid;
+  border-radius: 6pt;
+  background: rgba(255,255,255,0.2);
+  max-height: 300pt;
+  overflow-y: auto;
+}
+
+ul#latest li {
+  padding: 4pt 10pt;
+  font-size: 9pt;
+  font-family: monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+ul#latest li:nth-child(even) {
+  background-color: rgba(0,0,0,0.05);
+}
+
+ul#latest li.placeholder {
+  text-align: center;
+  color: #666;
+  font-family: Ubuntu, sans-serif;
+  padding: 20pt;
+}
+
+span.mine { color: #060; font-weight: bold; }
+span.send-out { color: #800; }
+span.send-in { color: #008; }
+span.event-addr {
+  font-size: 9pt;
+}
+span.event-value { font-weight: bold; }
+a.event-block { color: #888; font-size: 9pt; float: right; text-decoration: none; }
+a.event-block:hover { text-decoration: underline; }
+
+/* Controls */
+div#controls {
+  margin-top: 16pt;
+  padding: 16pt;
+  background-color: rgba(0,0,0, 0.05);
+  text-align: center;
+}
+
+#mineInfo {
+  text-align: center;
+  font-size: 9pt;
+  color: #555;
+  margin-top: 16pt;
+  margin-bottom: 4pt;
+}
+#mineInfo .units { color: #222; }
+
+div#controls input {
+  background: rgba(255,255,255,0.25);
+  border: 2pt solid rgba(0,0,0,0.5);
+}
+
+input#val { width: 8em; }
+input#to { width: 10em; }
+
+div#controls button {
+  background: rgba(0,0,0,0.25);
+  border: 2pt solid rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+div#controls button:hover {
+  background: rgba(0,0,0,0.35);
+}
+
+button#mine {
+  float: right;
+}
+button#mine:hover { background: rgba(0,0,0,0.35); }
+
+div#controls button:disabled,
+div#controls button.invalid {
+  background: transparent;
+  color: rgba(0,0,0,0.25);
+  border-color: rgba(0,0,0,0.15);
+  cursor: not-allowed;
+}
+
+/* Status messages */
+#status {
+  text-align: center;
+  font-size: 9pt;
+  color: #666;
+  margin-top: 8pt;
+}
+
+/* History page */
+.history-content {
+  max-width: 680pt;
+  margin: 0 auto;
+  padding: 16pt;
+}
+
+.history-content h1 {
+  color: #430;
+  font-size: 22pt;
+  margin: 16pt 0 8pt;
+}
+
+.history-content h2 {
+  color: #430;
+  font-size: 14pt;
+  margin: 20pt 0 6pt;
+}
+
+.history-content section {
+  background: rgba(255,255,255,0.4);
+  border-radius: 8pt;
+  padding: 16pt 20pt;
+  margin: 12pt 0;
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: #2a1f0e;
+}
+
+.history-content section p {
+  margin: 0 0 10pt;
+}
+.history-content section p:last-child {
+  margin-bottom: 0;
+}
+
+.history-content a { color: #630; text-decoration: underline; }
+
+.history-content code {
+  background: rgba(0,0,0,0.08);
+  padding: 1pt 5pt;
+  border-radius: 3pt;
+  font-size: 9.5pt;
+}
+
+.history-content .back-link {
+  display: inline-block;
+  margin: 12pt 0;
+  color: #630;
+  text-decoration: none;
+  font-size: 10pt;
+}
+.history-content .back-link:hover { text-decoration: underline; }
+
+.history-content .video-embed {
+  margin: 12pt 0;
+  text-align: center;
+}
+.history-content .video-embed iframe {
+  max-width: 100%;
+  border-radius: 4pt;
+}
+
+.history-content .sources {
+  font-size: 9.5pt;
+}
+.history-content .sources li {
+  margin-bottom: 4pt;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  div#top { flex-direction: column; gap: 4pt; text-align: center; }
+  div#main { margin: 0 8pt; padding: 8pt; }
+  div#title { font-size: 28pt; padding: 6pt 16pt 6pt 6pt; }
+  div#title img { width: 64px; height: 64px; }
+  #info { font-size: 9pt; padding: 8pt; }
+  input#val { width: 100%; display: block; margin-bottom: 4pt; }
+  input#to { width: 100%; display: block; margin-bottom: 4pt; }
+  button#mine { float: none; width: 100%; display: block; margin-top: 6pt; }
+  button#send { width: 100%; display: block; margin-top: 4pt; }
+  ul#latest { border-width: 8pt; max-height: 200pt; }
+  ul#latest li { font-size: 8pt; }
+  .history-content { padding: 8pt; }
+  .history-content section { padding: 12pt; }
+  .history-content .video-embed iframe { height: 200px; }
+}
