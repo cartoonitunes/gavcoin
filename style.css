@@ -95,6 +95,9 @@ div#title span {
 .history-link a:hover {
   text-decoration: underline;
 }
+.source-links { font-size: 9pt; margin-top: 4pt; }
+.source-links a { color: #630; text-decoration: none; }
+.source-links a:hover { text-decoration: underline; }
 
 /* Transaction list */
 ul#latest {
