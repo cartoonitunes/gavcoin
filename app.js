@@ -134,6 +134,17 @@ window.doMine = async function() {
     alert("Please connect your wallet first.");
     return;
   }
+  // Check if there are blocks to mine
+  try {
+    const lastMined = await provider.getStorage(CONTRACT, LAST_MINED_SLOT);
+    const lastMinedBlock = Number(BigInt(lastMined));
+    const currentBlock = await provider.getBlockNumber();
+    if (currentBlock <= lastMinedBlock) {
+      alert("No blocks to mine right now. Someone just mined.");
+      return;
+    }
+  } catch (_) {}
+
   try {
     mineBtn.disabled = true;
     mineBtn.textContent = "mining...";
@@ -177,6 +188,15 @@ window.doSend = async function() {
     alert("Amount must be greater than zero.");
     return;
   }
+
+  // Check balance before sending
+  try {
+    const balance = await contract.coinBalanceOf(userAddress);
+    if (Number(balance) < rawVal) {
+      alert("Insufficient balance. You have " + formatGav(balance) + " GAV.");
+      return;
+    }
+  } catch (_) {}
 
   try {
     sendBtn.disabled = true;
