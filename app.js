@@ -28,9 +28,8 @@ const ABI = [
   // The original contract uses logging for sends
 ];
 
-// Mining event topic and send event - we'll use raw logs
-// Storage slot 0x42 = lastBlockMined (from LLL source)
-const LAST_MINED_SLOT = "0x0000000000000000000000000000000000000000000000000000000000000042";
+// Storage slot 3 = m_lastNumberMined (Solidity layout: m_balances=0, m_approved=1, owner=2, m_lastNumberMined=3)
+const LAST_MINED_SLOT = "0x0000000000000000000000000000000000000000000000000000000000000003";
 
 // --- State ---
 let provider = null;
