@@ -108,7 +108,7 @@ async function updateBalance() {
 }
 
 function formatGav(raw) {
-  return Number(raw).toLocaleString();
+  return (Number(raw) / 1000).toLocaleString();
 }
 
 // --- Mineable blocks ---
@@ -119,8 +119,8 @@ async function updateMineableBlocks() {
     const currentBlock = await provider.getBlockNumber();
     const mineable = currentBlock - (lastMinedBlock || DEPLOY_BLOCK);
     mineableEl.textContent = mineable.toLocaleString();
-    // 1000 GAV per block to caller (and 1000 to validator)
-    mineRewardEl.textContent = (mineable * 1000).toLocaleString();
+    // 1 GAV per block to caller (and 1 to validator)
+    mineRewardEl.textContent = mineable.toLocaleString();
     mineBtn.textContent = "mine";
   } catch (e) {
     console.error("Mineable blocks error:", e);
@@ -171,7 +171,8 @@ window.doSend = async function() {
     return;
   }
 
-  const rawVal = Math.round(Number(valInput));
+  // Display GAV to raw: multiply by 1000
+  const rawVal = Math.round(Number(valInput) * 1000);
   if (rawVal <= 0) {
     alert("Amount must be greater than zero.");
     return;
