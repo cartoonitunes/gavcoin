@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GavCoin - Historic Ethereum Token (2016)</title>
+  <meta name="description" content="GavCoin (GAV) - a historic Ethereum token created by Gavin Wood in April 2016. One of the earliest token contracts on Ethereum.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="top">
+  <div id="balance">
+    <span id="gav">-</span> <span class="units">GAV</span>
+  </div>
+  <div id="addr">
+    <button id="connectBtn" onclick="connectWallet()">Connect Wallet</button>
+    <span id="addrText" style="display:none"></span>
+  </div>
+</div>
+
+<div id="main">
+  <div style="text-align: center">
+    <div id="title">
+      <img src="gavcoin.png" width="96" height="96" alt="GavCoin logo">
+      <span><b style="font-size:35pt">GAV</b>coin</span>
+    </div>
+  </div>
+
+  <div id="mineInfo">Mining now would yield <span id="mineReward">-</span> <span class="units">GAV</span></div>
+  <div id="controls">
+    <input id="val" type="text" value="" /> <span class="units">GAV</span>
+    to <input id="to" type="text" value="" />
+    <button id="send" onclick="doSend()">send</button>
+    <button id="mine" onclick="doMine()">mine</button>
+  </div>
+
+  <div id="info">
+    <p>Likely created by <strong>Gavin Wood</strong>, deployed April 26, 2016 (block 1,408,600).</p>
+    <p>
+      <a href="https://etherscan.io/address/0xb4abc1bfc403a7b82c777420c81269858a4b8aa4" target="_blank" rel="noopener">0xb4abc1bfc403a7b82c777420c81269858a4b8aa4</a>
+      &middot;
+      <span id="mineableBlocks">-</span> blocks mineable
+    </p>
+    <p class="history-link"><a href="history.html">Read the history of GavCoin &rarr;</a></p>
+  </div>
+
+  <ul id="latest">
+    <li class="placeholder">Loading activity...</li>
+  </ul>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
