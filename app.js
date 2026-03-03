@@ -149,9 +149,9 @@ window.doMine = async function() {
     mineBtn.disabled = true;
     mineBtn.textContent = "mining...";
     const tx = await writeContract.mine();
-    setStatus("Mining tx sent: " + tx.hash.slice(0, 10) + "...");
+    setStatus('Mining tx sent. <a href="https://etherscan.io/tx/' + tx.hash + '" target="_blank">View on Etherscan</a>', "pending");
     await tx.wait();
-    setStatus("Mined successfully!");
+    setStatus('Mined successfully! <a href="https://etherscan.io/tx/' + tx.hash + '" target="_blank">View transaction</a>', "success");
     // Use a short delay to let the RPC catch up
     await new Promise(r => setTimeout(r, 2000));
     await updateBalance();
@@ -204,9 +204,9 @@ window.doSend = async function() {
     sendBtn.disabled = true;
     sendBtn.textContent = "sending...";
     const tx = await writeContract.sendCoin(rawVal, toInput);
-    setStatus("Send tx: " + tx.hash.slice(0, 10) + "...");
+    setStatus('Sending ' + valInput + ' GAV. <a href="https://etherscan.io/tx/' + tx.hash + '" target="_blank">View on Etherscan</a>', "pending");
     await tx.wait();
-    setStatus("Sent " + valInput + " GAV!");
+    setStatus('Sent ' + valInput + ' GAV! <a href="https://etherscan.io/tx/' + tx.hash + '" target="_blank">View transaction</a>', "success");
     document.getElementById("val").value = "";
     document.getElementById("to").value = "";
     await updateBalance();
@@ -306,18 +306,50 @@ async function loadRecentEvents() {
   }
 }
 
-// --- Status helper ---
-function setStatus(msg) {
+// --- Status/confirmation helper ---
+function setStatus(msg, type) {
+  // type: "pending", "success", "error"
   let el = document.getElementById("status");
   if (!el) {
     el = document.createElement("div");
     el.id = "status";
-    document.getElementById("main").appendChild(el);
+    document.getElementById("controls").insertAdjacentElement("afterend", el);
   }
-  el.textContent = msg;
-  // Auto-clear after 10s
-  setTimeout(() => { if (el.textContent === msg) el.textContent = ""; }, 10000);
+  el.className = "status-" + (type || "pending");
+  el.innerHTML = msg;
+  if (type === "success") {
+    setTimeout(() => { if (el.innerHTML === msg) { el.innerHTML = ""; el.className = ""; } }, 15000);
+  }
 }
+
+// --- Input validation ---
+function setupValidation() {
+  const valEl = document.getElementById("val");
+  const toEl = document.getElementById("to");
+  const sendEl = document.getElementById("send");
+
+  valEl.addEventListener("input", () => {
+    const v = valEl.value.trim();
+    if (v === "") { valEl.className = ""; return; }
+    const n = Number(v);
+    valEl.className = (isNaN(n) || n <= 0) ? "invalid" : "valid";
+    updateSendBtn();
+  });
+
+  toEl.addEventListener("input", () => {
+    const v = toEl.value.trim();
+    if (v === "") { toEl.className = ""; return; }
+    toEl.className = ethers.isAddress(v) ? "valid" : (v.length < 42 ? "maybevalid" : "invalid");
+    updateSendBtn();
+  });
+
+  function updateSendBtn() {
+    const valOk = valEl.className === "valid";
+    const toOk = toEl.className === "valid";
+    sendEl.className = (valOk && toOk) ? "" : "invalid";
+  }
+}
+setupValidation();
 
 // --- Wallet events ---
 if (window.ethereum) {

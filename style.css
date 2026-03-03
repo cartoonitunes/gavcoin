@@ -181,8 +181,7 @@ button#mine {
 }
 button#mine:hover { background: rgba(0,0,0,0.35); }
 
-div#controls button:disabled,
-div#controls button.invalid {
+div#controls button:disabled {
   background: transparent;
   color: rgba(0,0,0,0.25);
   border-color: rgba(0,0,0,0.15);
@@ -192,9 +191,37 @@ div#controls button.invalid {
 /* Status messages */
 #status {
   text-align: center;
-  font-size: 9pt;
-  color: #666;
+  font-size: 10pt;
   margin-top: 8pt;
+  padding: 8pt 12pt;
+  border-radius: 4pt;
+}
+#status:empty { display: none; }
+#status a { color: inherit; font-weight: bold; }
+.status-pending {
+  background: rgba(200, 170, 50, 0.2);
+  border: 1pt solid rgba(200, 170, 50, 0.5);
+  color: #654;
+}
+.status-success {
+  background: rgba(0, 140, 0, 0.15);
+  border: 1pt solid rgba(0, 140, 0, 0.4);
+  color: #060;
+}
+.status-error {
+  background: rgba(180, 0, 0, 0.15);
+  border: 1pt solid rgba(180, 0, 0, 0.4);
+  color: #800;
+}
+
+/* Input validation */
+div#controls input.invalid { background-color: #fcc; }
+div#controls input.maybevalid { background-color: #fec; }
+div#controls input.valid { background-color: rgba(200, 255, 200, 0.4); }
+div#controls button.invalid {
+  color: rgba(0,0,0,0.25);
+  border-color: rgba(0,0,0,0.15);
+  cursor: not-allowed;
 }
 
 /* History page */
