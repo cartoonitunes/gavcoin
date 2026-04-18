@@ -76,7 +76,11 @@ ipfs add -r .
 
 ### ENS
 
-This site is designed to be deployed to IPFS and linked via ENS contenthash on `gavcoin.eth`, accessible at `gavcoin.eth.limo`.
+This site was originally designed to be deployed to IPFS and linked via ENS contenthash on `gavcoin.eth`, historically accessible at `gavcoin.eth.limo`.
+
+### Temporary web fallback
+
+For the current fallback deployment, serve the static site directly on `gavcoineth.xyz` via Vercel or any static host.
 
 ## Original Sources
 
