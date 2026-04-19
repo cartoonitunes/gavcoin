@@ -62,27 +62,49 @@ async function init() {
 }
 
 // --- Wallet connection ---
+function getInjectedProvider() {
+  if (!window.ethereum) return null;
+
+  const providers = window.ethereum.providers;
+  if (Array.isArray(providers) && providers.length) {
+    return (
+      providers.find((p) => p.isCoinbaseWallet) ||
+      providers.find((p) => p.isMetaMask) ||
+      providers[0]
+    );
+  }
+
+  return window.ethereum;
+}
+
 window.connectWallet = async function() {
-  if (!window.ethereum) {
-    alert("No Ethereum wallet detected. Please install MetaMask.");
+  const injectedProvider = getInjectedProvider();
+  if (!injectedProvider) {
+    alert("No Ethereum wallet detected. Please install a wallet extension.");
     return;
   }
+
+  connectBtn.disabled = true;
+  const originalText = connectBtn.textContent;
+  connectBtn.textContent = "Connecting...";
+
   try {
-    const browserProvider = new ethers.BrowserProvider(window.ethereum);
-    const accounts = await browserProvider.send("eth_requestAccounts", []);
-    
-    // Check chain
+    if (typeof injectedProvider.request !== "function") {
+      throw new Error("Injected wallet provider is missing request()");
+    }
+
+    await injectedProvider.request({ method: "eth_requestAccounts" });
+
+    const browserProvider = new ethers.BrowserProvider(injectedProvider, "any");
     const network = await browserProvider.getNetwork();
     if (network.chainId !== 1n) {
-      alert("Please switch to Ethereum mainnet.");
-      return;
+      throw new Error("Please switch to Ethereum mainnet.");
     }
 
     signer = await browserProvider.getSigner();
     userAddress = await signer.getAddress();
     writeContract = new ethers.Contract(CONTRACT, ABI, signer);
 
-    // Update UI
     connectBtn.style.display = "none";
     addrEl.style.display = "inline";
     addrEl.textContent = userAddress.slice(0, 6) + "..." + userAddress.slice(-4);
@@ -90,7 +112,11 @@ window.connectWallet = async function() {
     await updateBalance();
   } catch (e) {
     console.error("Connect error:", e);
-    alert("Failed to connect wallet: " + e.message);
+    const message = e?.info?.error?.message || e?.shortMessage || e?.message || "Unknown wallet error";
+    alert("Failed to connect wallet: " + message);
+  } finally {
+    connectBtn.disabled = false;
+    connectBtn.textContent = originalText;
   }
 };
 
